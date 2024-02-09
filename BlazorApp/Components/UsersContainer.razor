@@ -1,0 +1,32 @@
+﻿<MudList>
+<DropTarget T="User" Drop="@OnDrop" >
+        <MudText Typo="Typo.h6" Style="color:#F5F5F5">Użytkownicy</MudText>
+    <div style="height:90vh;display:flex;flex-direction:row;flex-wrap:wrap;">
+    @foreach (var user in Users)
+    {
+ 
+            <UserCard User="@user" />
+    }
+    </div>
+</DropTarget>
+</MudList>
+
+@code {
+    [Parameter]
+    public List<User> Users { get; set; }
+
+    [Parameter]
+    public EventCallback<User> OnUserDroppedBack { get; set; }
+
+    void OnDrop(User droppedUser)
+    {
+        if (!Users.Any(u => u.Id == droppedUser.Id))
+        {
+            Users.Add(droppedUser);
+            OnUserDroppedBack.InvokeAsync(droppedUser);
+        }
+
+        StateHasChanged();
+    }
+}
+

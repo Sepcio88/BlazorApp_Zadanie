@@ -1,0 +1,31 @@
+﻿<MudTabs ActivePanelIndex="@activeTabIndex">
+@foreach (var group in groups)
+{
+        <GroupTab Group="@group" OnUserDropped="HandleUserDropped" OnGroupHover="HandleGroupHover" />
+}
+</MudTabs>
+@code {
+    private int activeTabIndex = 0;
+    
+    [Parameter]
+    public List<GroupM> groups { get; set; }
+
+    private void HandleUserDropped((User user, int groupId) details)
+    {
+        OnUserDropped.InvokeAsync(details);
+    }
+
+    private void HandleGroupHover(int groupId)
+    {
+        var index = groups.FindIndex(g => g.Id == groupId);
+        if (index != -1)
+        {
+            activeTabIndex = index;
+            StateHasChanged();
+        }
+    }
+
+    [Parameter]
+    public EventCallback<(User user, int groupId)> OnUserDropped { get; set; }
+}
+

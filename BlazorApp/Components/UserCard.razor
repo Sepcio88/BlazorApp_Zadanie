@@ -1,0 +1,29 @@
+﻿    <Draggable Data="@User">
+        <MudCard Style="width:138px;margin:3px;border-radius:12px;">
+            <MudCardHeader Style="padding:unset;">
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Material.Outlined.Circle" Color="Color.Default" />
+                </CardHeaderAvatar>
+            </MudCardHeader>
+            <div style="display: flex; justify-content: center;">
+                <MudAvatar Style="height:70px; width:70px; font-size:2rem;" Color="Color.Primary">
+                    <MudImage Src="@User.ImageUrl"></MudImage>
+                </MudAvatar>
+            </div>
+            <MudCardContent Style="display:flex;justify-content:center;text-align: center;align-items:center">
+            <MudText Typo="Typo.body2" GutterBottom="true" style="height:45px;display: flex; justify-content: center; align-items: center;">
+                <div>@User.Name</div>
+            </MudText>
+            </MudCardContent>
+            <MudCardContent Style="display:flex;justify-content:center;padding:unset;width:100%;">
+                <div style="background: #32293F;width: 100%;text-align: center;color: white;padding: 5px 0px;border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <MudIcon Color="Color.Success" Icon="@Icons.Material.Filled.LocationOn" Title="Favorite" />@User.City
+                </div>
+            </MudCardContent>
+
+        </MudCard>
+    </Draggable>
+@code {
+    [Parameter]
+    public User User { get; set; }
+}

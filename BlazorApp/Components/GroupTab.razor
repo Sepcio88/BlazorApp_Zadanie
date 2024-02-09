@@ -1,0 +1,45 @@
+﻿@inject DragAndDropService DragAndDropService
+@using BlazorApp.Data
+
+
+<MudTabPanel Text="@Group.Name" @ondragover="OnDragOver">
+    <DropTarget T="User" Drop="@OnDrop">
+        <div style="height:85vh;width:98vh;background-color:transparent;display:flex;flex-direction:row;flex-wrap:wrap;">
+            @foreach (var user in Group.Members)
+            {
+                <UserCard User="@user" />
+            }
+        </div>
+    </DropTarget>
+</MudTabPanel>
+
+@code {
+    [Parameter]
+    public GroupM Group { get; set; }
+
+    [Parameter]
+    public EventCallback<(User user, int groupId)> OnUserDropped { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnGroupHover { get; set; }
+
+    private void OnDragOver(DragEventArgs e)
+    {
+        OnGroupHover.InvokeAsync(Group.Id);
+    }
+
+    private void OnDrop(User user)
+    {
+        var groupId = Group.Id;
+
+        HandleDrop(user, groupId).ContinueWith(task =>
+        {
+
+        }, TaskScheduler.FromCurrentSynchronizationContext()); 
+    }
+
+    private async Task HandleDrop(User user, int groupId)
+    {
+        await OnUserDropped.InvokeAsync((user, groupId));
+    }
+}

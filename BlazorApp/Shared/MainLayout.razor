@@ -1,0 +1,28 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider />
+<MudLayout>
+    <MudDrawer @bind-Open="drawerOpen" ClipMode="DrawerClipMode.Always" Variant="DrawerVariant.Mini" Width="150px" Color="Color.Default">
+        <MudNavMenu Style="display:flex;flex-direction:column;">
+            <MudCardContent>
+                <MudIcon Icon="@Icons.Material.Outlined.Computer"></MudIcon>
+            </MudCardContent>
+            <MudCardContent>
+                <MudIcon Icon="@Icons.Material.Outlined.Star"></MudIcon>
+                <MudText Typo="Typo.caption" >Zakładka 1</MudText>
+            </MudCardContent>
+            <MudCardContent>
+                <MudIcon Icon="@Icons.Material.Outlined.Star"></MudIcon>
+                <MudText Typo="Typo.caption" >Zakładka 2</MudText>
+            </MudCardContent>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent Style="background: linear-gradient(282.9deg, #C33764 -18.56%, #1D2671 100%);height:98vh;">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool drawerOpen = false;
+}
+
+
